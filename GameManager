@@ -1,0 +1,65 @@
+// GameManager.h
+#ifndef GAMEMANAGER_H
+#define GAMEMANAGER_H
+#include<list>
+#include<Observer.h>
+#include<Player.h>
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class GameManager
+{
+    public:
+        GameManager();
+        virtual ~GameManager();
+        void notifyAll();
+        void insertPlayer(int position);
+
+
+    protected:
+
+    private:
+        list<Observer*> observers;
+        vector<Observer*> observersVector;
+};
+
+#endif // GAMEMANAGER_H
+
+
+//GameManger.cpp
+#include "GameManager.h"
+
+GameManager::GameManager()
+{
+//    observers = new list<Observer*>();
+    //ctors
+}
+
+GameManager::~GameManager()
+{
+    //dtor
+}
+void GameManager::notifyAll(){
+//    for(int i = 0; i < observers.size(); i++){
+
+//    }
+
+    cout << "Inside notify alls" << endl;
+    for (auto it = observers.begin(); it != observers.end(); ++it){
+        Observer* o = *it;
+        o->Update();
+    }
+    for(Observer* observer : observersVector){
+            observer->Update();
+    }
+}
+
+void GameManager::insertPlayer(int playerPosition){
+    Player* player;
+    player->setPlayerPosition(playerPosition);
+//    cout << "The value of this are == " << player->getPlayerPosition() << endl;
+    observers.push_back(player);
+    observersVector.push_back(player);
+}
